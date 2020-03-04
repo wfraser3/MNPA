@@ -9,14 +9,12 @@ R0 = 1000;
 
 %{ 
 Unknowns:
-
 V1
 V2
 V3
 V4
 V0
 IL
-
 %}
 
 G = [1 0 0 0 0 0;
@@ -45,13 +43,14 @@ end
 
 vin = linspace(-10,10,21);
 
-figure(1)
+f1 = figure(1);
 plot(vin,vout,'-*b')
 xlabel('Vin (V)')
 ylabel('Vout (V)')
 title('DC Case')
 xlim([-10,10])
 ylim([min(vout),max(vout)])
+movegui(f1,'northwest')
 
 %b) AC Case
 w = linspace(0,1000,1001);
@@ -65,19 +64,21 @@ end
 
 magV = abs(voutAC);
 
-figure(2)
+f2 = figure(2);
 plot(w,magV,'b')
 xlabel('Frequency (Hz)')
 ylabel('Vout (V)')
 title('AC Case')
+movegui(f2,'northeast')
 
 gain = 20*log10(magV);
 
-figure(3)
+f3 = figure(3);
 plot(w,gain,'b')
 xlabel('Frequency (Hz)')
 ylabel('Gain (dB)')
 title('AC Gain')
+movegui(f3,'southwest')
 
 %c) Pertubations of C
 miu = cap;
@@ -122,11 +123,12 @@ for time = 1:1000
     magV = abs(voutAC);
     gain(time) = 20*log10(magV);
     
-    figure(4)
+    f4 = figure(4);
     histogram(gain(1:time),50,'FaceColor','b')
     xlabel('Gain (dB)')
     ylabel('Counts')
     title('Histogram of Gain with Pertubations of C')
+    movegui(f4,'southeast')
     
     pause(0.01)
 end
